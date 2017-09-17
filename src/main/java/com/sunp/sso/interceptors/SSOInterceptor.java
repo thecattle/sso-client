@@ -27,6 +27,14 @@ import java.util.Map;
 public class SSOInterceptor implements HandlerInterceptor {
     private String serverUrl = "http://server.sso.com:8082/";
 
+    /**
+     * springmvc 拦截器
+     * @param request
+     * @param response
+     * @param o
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getRequestURI();
@@ -73,6 +81,13 @@ public class SSOInterceptor implements HandlerInterceptor {
         return false;
     }
 
+    /**
+     * 处理 server 返回的内容
+     * @param result
+     * @param request
+     * @param response
+     * @return
+     */
     private boolean resultHandle(String result, HttpServletRequest request, HttpServletResponse response) {
         JSONObject jsonResult = JSONObject.parseObject(result);
         if (jsonResult.getBoolean("success")) {
